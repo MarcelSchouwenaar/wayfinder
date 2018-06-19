@@ -104,6 +104,10 @@ var TONE_QUERY = "TONE_QUERY";
 var UIDRAW_QUERY = "UIDRAW_QUERY";
 var SYSTEM_COMMAND = "SYSTEM_COMMAND";
 
+var PRESSURE_SENSOR = "03"; //Analalog sensor: NXT-SND-DB
+var PRESSURE_MODE = "00"; //Assuming there is no mode...
+
+
 var frequencies = { "C4" : 262, "D4" : 294, "E4" : 330, "F4" : 349, "G4" : 392, "A4" : 440, "B4" : 494, "C5" : 523, "D5" : 587, "E5" : 659, "F5" : 698, "G5" : 784, "A5" : 880, "B5" : 988, "C6" : 1047, "D6" : 1175, "E6" : 1319, "F6" : 1397, "G6" : 1568, "A6" : 1760, "B6" : 1976, "C#4" : 277, "D#4" : 311, "F#4" : 370, "G#4" : 415, "A#4" : 466, "C#5" : 554, "D#5" : 622, "F#5" : 740, "G#5" : 831, "A#5" : 932, "C#6" : 1109, "D#6" : 1245, "F#6" : 1480, "G#6" : 1661, "A#6" : 1865 };
 
 var colors = [ "none", "black", "blue", "green", "yellow", "red", "white"];
@@ -851,6 +855,9 @@ function readFromAMotor(port, type, mode, callback)
                                    "0160"); // result stuff
     
     addToQueryQueue([port, type, mode, callback, theCommand]);
+
+
+   
 }
 
 function UIRead(port, subtype, callback)
@@ -1076,6 +1083,20 @@ function readColorSensorPort(port, mode, callback)
     var portInt = parseInt(port) - 1;
     readFromColorSensor(portInt, modeCode, callback);
 }
+
+//------------------------------------------------------
+
+function readPressureSensorPort(port, mode, callback)
+{   
+    var portInt = parseInt(port) - 1;
+
+    var _mode = mode || PRESSURE_MODE; //does this sensor have a mode??
+    
+    readFromSensor2(portInt, PRESSURE_SENSOR, mode, callback);
+
+}
+
+//-------------------------------------------------------
 
 var lineCheckingInterval = 0;
 
@@ -1504,7 +1525,9 @@ function(ext)
               ["R", "remote button %m.whichInputPort",                     "readRemoteButtonPort",   "1"],
               ["R", "motor %m.motorInputMode %m.whichMotorIndividual",     "readFromMotor",   "position", "A"],
               ['R', 'battery level',   'readBatteryLevel'],
-              ['R', 'gyro  %m.gyroMode %m.whichInputPort',                 'readGyroPort',  'angle', '1']
+              ['R', 'gyro  %m.gyroMode %m.whichInputPort',                 'readGyroPort',  'angle', '1'],
+              ["R", "pressure sensor %m.whichInputPort",   "readPressureSensorPort",   "1"],
+
                     ],
      "menus": {
      "whichMotorPort":   ["A", "B", "C", "D", "A+D", "B+C", "all"],
