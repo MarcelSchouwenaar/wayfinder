@@ -601,6 +601,11 @@ function receive_handler(data)
         var result = inputData[5];
         theResult = (result == 100);
     }
+    else if (type == PRESSURE_SENSOR)
+    {
+        var result = inputData[5];
+        theResult = result;
+    }
     else if (type == COLOR_SENSOR)
     {
         var num = Math.floor(getFloatResult(inputData));
@@ -641,6 +646,7 @@ function receive_handler(data)
             theResult = inputData[5];
         }
     }
+
     else if (type == BEGIN_DOWNLOAD)
     {
         theResult = inputData[6];
