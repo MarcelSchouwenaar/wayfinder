@@ -630,6 +630,27 @@ function receive_handler(data)
         var result = inputData[5];
         theResult = (result == 100);
     }
+    //------------------------------------------
+
+    else if (type == GYRO_SENSOR)
+    {
+        console.log("detected the gyro sensor");
+        theResult = getFloatResult(inputData);
+    }
+
+    else if (type == PRESSURE_SENSOR)
+    {
+       theResult = getFloatResult(inputData);
+        console.log("detected the pressure sensor", theResult);
+
+    }
+    else if (type == TEMP_SENSOR)
+    {
+        console.log("detected the temperature sensor");
+       theResult = getFloatResult(inputData);
+    }
+
+    //------------------------------------------
     else if (type == COLOR_SENSOR)
     {
         var num = Math.floor(getFloatResult(inputData));
@@ -652,28 +673,6 @@ function receive_handler(data)
         else if (mode == IR_REMOTE)
             theResult = getIRButtonNameForCode(getFloatResult(inputData));
     }
-
-
-    else if (type == GYRO_SENSOR)
-    {
-        console.log("detected the gyro sensor");
-        theResult = getFloatResult(inputData);
-    }
-
-    //------------------------------------------
-
-    else if (type == PRESSURE_SENSOR)
-    {
-        console.log("detected the pressure sensor");
-       theResult = getFloatResult(inputData);
-    }
-    else if (type == TEMP_SENSOR)
-    {
-        console.log("detected the temperature sensor");
-       theResult = getFloatResult(inputData);
-    }
-
-    //------------------------------------------
 
     else if (type == READ_FROM_MOTOR)
     {
