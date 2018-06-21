@@ -623,7 +623,8 @@ function receive_handler(data)
     var callback = thePendingQuery[3];
     var theCommand = thePendingQuery[4];
 
-    console.log(">> Sensor of type: " + hexcouplet(type) + " (" + sensorNames[hexcouplet(type)] + ") on port " + port);
+    console.log("v1");
+    if(port <= 7) console.log(">> Sensor of type: " + hexcouplet(type) + " (" + sensorNames[hexcouplet(type)] + ") on port " + port);
     
     if (type == TOUCH_SENSOR)
     {
@@ -641,7 +642,7 @@ function receive_handler(data)
 
     else if (type == PRESSURE_SENSOR)
     {
-       theResult = getFloatResult(inputData);
+       theResult = inputData;
        console.log(">> detected the pressure sensor", theResult);
 
     }
