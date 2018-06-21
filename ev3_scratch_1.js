@@ -634,20 +634,22 @@ function receive_handler(data)
 
     else if (type == GYRO_SENSOR)
     {
-        console.log("detected the gyro sensor");
         theResult = getFloatResult(inputData);
+        console.log(">> detected the gyro sensor", theResult);
+
     }
 
     else if (type == PRESSURE_SENSOR)
     {
        theResult = getFloatResult(inputData);
-        console.log("detected the pressure sensor", theResult);
+       console.log(">> detected the pressure sensor", theResult);
 
     }
     else if (type == TEMP_SENSOR)
     {
-        console.log("detected the temperature sensor");
        theResult = getFloatResult(inputData);
+       console.log(">> detected the temperature sensor", theResult);
+
     }
 
     //------------------------------------------
