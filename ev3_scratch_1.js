@@ -104,9 +104,13 @@ var TONE_QUERY = "TONE_QUERY";
 var UIDRAW_QUERY = "UIDRAW_QUERY";
 var SYSTEM_COMMAND = "SYSTEM_COMMAND";
 
-var PRESSURE_SENSOR = "03"; //Analalog sensor: NXT-SND-DB
-var PRESSURE_MODE = "00"; //Assuming there is no mode...
+var PRESSURE_SENSOR = "03"; //NXT-SND-DB
+var PRESSURE_DB = "00"; 
+var PRESSURE_DBA = "01";
 
+var TEMP_SENSOR = "06"; //NXT-TEMP
+var TEMP_FAHRENHEIT = "01"; 
+var TEMP_CELCIUS = "00";
 
 var frequencies = { "C4" : 262, "D4" : 294, "E4" : 330, "F4" : 349, "G4" : 392, "A4" : 440, "B4" : 494, "C5" : 523, "D5" : 587, "E5" : 659, "F5" : 698, "G5" : 784, "A5" : 880, "B5" : 988, "C6" : 1047, "D6" : 1175, "E6" : 1319, "F6" : 1397, "G6" : 1568, "A6" : 1760, "B6" : 1976, "C#4" : 277, "D#4" : 311, "F#4" : 370, "G#4" : 415, "A#4" : 466, "C#5" : 554, "D#5" : 622, "F#5" : 740, "G#5" : 831, "A#5" : 932, "C#6" : 1109, "D#6" : 1245, "F#6" : 1480, "G#6" : 1661, "A#6" : 1865 };
 
@@ -603,8 +607,11 @@ function receive_handler(data)
     }
     else if (type == PRESSURE_SENSOR)
     {
-        var result = inputData[5];
-        theResult = result;
+       theResult = getFloatResult(inputData);
+    }
+    else if (type == TEMP_SENSOR)
+    {
+       theResult = getFloatResult(inputData);
     }
     else if (type == COLOR_SENSOR)
     {
@@ -1096,9 +1103,19 @@ function readPressureSensorPort(port, mode, callback)
 {   
     var portInt = parseInt(port) - 1;
 
-    var _mode = mode || PRESSURE_MODE; //does this sensor have a mode??
+    var _mode = mode || PRESSURE_DB; //does this sensor have a mode??
     
     readFromSensor2(portInt, PRESSURE_SENSOR, mode, callback);
+
+}
+
+function readTemperatureSensorPort(port, mode, callback)
+{   
+    var portInt = parseInt(port) - 1;
+
+    var _mode = mode || TEMP_CELCIUS; //does this sensor have a mode??
+    
+    readFromSensor2(portInt, TEMP_SENSOR, mode, callback);
 
 }
 
@@ -1477,8 +1494,14 @@ function(ext)
      {
         readColorSensorPort(port, mode, callback);
      }
-     
-     
+     ext.readPressureSensorPort = function(port, mode, callback)
+     {
+        readPressureSensorPort(port, mode, callback);
+     }
+     ext.readTemperatureSensorPort = function(port, mode, callback)
+     {
+        readTemperatureSensorPort(port, mode, callback);
+     }
      ext.waitUntilDarkLinePort = function(port, callback)
      {
         waitUntilDarkLinePort(port, callback);
@@ -1533,6 +1556,7 @@ function(ext)
               ['R', 'battery level',   'readBatteryLevel'],
               ['R', 'gyro  %m.gyroMode %m.whichInputPort',                 'readGyroPort',  'angle', '1'],
               ["R", "pressure sensor %m.whichInputPort",   "readPressureSensorPort",   "1"],
+              ["R", "temperature sensor %m.tempMode %m.whichInputPort",   "readTemperatureSensorPort", 'celcius',   "1"],
 
                     ],
      "menus": {
@@ -1544,6 +1568,7 @@ function(ext)
      "lightSensorMode":  ["reflected", "ambient", "color"],
      "motorInputMode": ["position", "speed"],
      "gyroMode": ["angle", "rate"],
+     "tempMode": ["celcius", "fahrenheit"],
      "note":["C4","D4","E4","F4","G4","A4","B4","C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6","A6","B6","C#4","D#4","F#4","G#4","A#4","C#5","D#5","F#5","G#5","A#5","C#6","D#6","F#6","G#6","A#6"],
      "whichInputPort": ["1", "2", "3", "4"],
      "patterns": ["off", "green", "red", "orange", "green flashing", "red flashing", "orange flashing", "green pulse", "red pulse", "orange pulse"],
