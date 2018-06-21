@@ -12,6 +12,7 @@ function timeStamp()
 
 function console_log(str)
 {
+    return; //temp disabled!
     console.log(timeStamp() + ": "  + str);
 }
 
@@ -617,6 +618,8 @@ function receive_handler(data)
     var mode = thePendingQuery[2];
     var callback = thePendingQuery[3];
     var theCommand = thePendingQuery[4];
+
+    console.log(">> Sensor of type: " + type);
     
     if (type == TOUCH_SENSOR)
     {
@@ -645,9 +648,11 @@ function receive_handler(data)
         else if (mode == IR_REMOTE)
             theResult = getIRButtonNameForCode(getFloatResult(inputData));
     }
+
+
     else if (type == GYRO_SENSOR)
     {
-        console_log("detected the gyro sensor");
+        console.log("detected the gyro sensor");
         theResult = getFloatResult(inputData);
     }
 
@@ -655,12 +660,12 @@ function receive_handler(data)
 
     else if (type == PRESSURE_SENSOR)
     {
-        console_log("detected the pressure sensor");
+        console.log("detected the pressure sensor");
        theResult = getFloatResult(inputData);
     }
     else if (type == TEMP_SENSOR)
     {
-        console_log("detected the temperature sensor");
+        console.log("detected the temperature sensor");
        theResult = getFloatResult(inputData);
     }
 
