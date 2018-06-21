@@ -599,7 +599,7 @@ function addToQueryQueue(query_info)
 
 function receive_handler(data)
 {
-    console.log("v4 -- incoming data handler");
+    console.log("v5 -- incoming data handler");
 
     var inputData = new Uint8Array(data);
     console.log(">> received: " + createHexString(inputData));
@@ -732,17 +732,18 @@ function receive_handler(data)
         callback(theResult);
     
     if(isNaN(port)){
-        console.log("ERROR: port "+port +" query", thePendingQuery);
-    } else {
-        while(callback = waitingCallbacks[port].shift())
-        {
-            console_log("result (coalesced): " + theResult);
-            callback(theResult);
-        }     
-        // done with this query
-        thePendingQuery = null;
-    
+        port = 1;
     }
+  
+    while(callback = waitingCallbacks[port].shift())
+    {
+        console_log("result (coalesced): " + theResult);
+        callback(theResult);
+    }     
+    // done with this query
+    thePendingQuery = null;
+    
+    
     
     
     // go look for the next query
