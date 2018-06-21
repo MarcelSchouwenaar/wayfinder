@@ -1609,7 +1609,7 @@ function(ext)
               ['R', 'battery level',   'readBatteryLevel'],
               ['R', 'gyro  %m.gyroMode %m.whichInputPort',                 'readGyroPort',  'angle', '1'],
               ["R", "pressure sensor %m.whichInputPort",   "readPressureSensorPort",   "1"],
-              ["R", "temperature sensor %m.tempMode %m.whichInputPort",   "readTemperatureSensorPort", 'celcius',   "1"],
+              ["R", "v6 - temperature sensor %m.tempMode %m.whichInputPort",   "readTemperatureSensorPort", 'celcius',   "1"],
 
                     ],
      "menus": {
