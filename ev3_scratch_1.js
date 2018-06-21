@@ -599,6 +599,8 @@ function addToQueryQueue(query_info)
 
 function receive_handler(data)
 {
+    console.log("v4 -- incoming data handler");
+
     var inputData = new Uint8Array(data);
     console.log(">> received: " + createHexString(inputData));
     // console_log(">> received: " + createHexString(inputData));
@@ -623,7 +625,6 @@ function receive_handler(data)
     var callback = thePendingQuery[3];
     var theCommand = thePendingQuery[4];
 
-    console.log("v3");
     if(port <= 7) console.log(">> Sensor of type: " + hexcouplet(type) + " (" + sensorNames[hexcouplet(type)] + ") on port " + port);
     
     if (type == TOUCH_SENSOR)
@@ -730,14 +731,19 @@ function receive_handler(data)
     if (callback)
         callback(theResult);
     
-    while(callback = waitingCallbacks[port].shift())
-    {
-        console_log("result (coalesced): " + theResult);
-        callback(theResult);
+    if(isNaN(port)){
+        console.log("ERROR: port "+port +" query", thePendingQuery);
+    } else {
+        while(callback = waitingCallbacks[port].shift())
+        {
+            console_log("result (coalesced): " + theResult);
+            callback(theResult);
+        }     
+        // done with this query
+        thePendingQuery = null;
+    
     }
     
-    // done with this query
-    thePendingQuery = null;
     
     // go look for the next query
     executeQueryQueueAgain(1);
