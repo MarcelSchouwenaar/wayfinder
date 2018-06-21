@@ -623,7 +623,7 @@ function receive_handler(data)
     var callback = thePendingQuery[3];
     var theCommand = thePendingQuery[4];
 
-    console.log("v2");
+    console.log("v3");
     if(port <= 7) console.log(">> Sensor of type: " + hexcouplet(type) + " (" + sensorNames[hexcouplet(type)] + ") on port " + port);
     
     if (type == TOUCH_SENSOR)
@@ -1137,23 +1137,34 @@ function readColorSensorPort(port, mode, callback)
 
 //------------------------------------------------------
 
-function readPressureSensorPort(port, mode, callback)
+function readGyroPort(mode, port, callback)
+{
+    var modeCode = GYRO_ANGLE;
+    if (mode == 'rate') { modeCode = GYRO_RATE; }
+    
+    var portInt = parseInt(port) - 1;
+    
+    readFromSensor2(portInt, GYRO_SENSOR, modeCode, callback);
+}
+
+function readPressureSensorPort(mode, port, callback)
 {   
     var portInt = parseInt(port) - 1;
 
-    var _mode = mode || PRESSURE_DB; //does this sensor have a mode??
+    var modeCode = PRESSURE_DB;
     
-    readFromSensor2(portInt, PRESSURE_SENSOR, mode, callback);
+    readFromSensor2(portInt, PRESSURE_SENSOR, modeCode, callback);
 
 }
 
-function readTemperatureSensorPort(port, mode, callback)
+function readTemperatureSensorPort(mode, port, callback)
 {   
     var portInt = parseInt(port) - 1;
 
-    var _mode = mode || TEMP_CELCIUS; //does this sensor have a mode??
+    var modeCode = TEMP_CELCIUS;
+    if (mode == 'fahrenheit') { modeCode = TEMP_FAHRENHEIT; }
     
-    readFromSensor2(portInt, TEMP_SENSOR, mode, callback);
+    readFromSensor2(portInt, TEMP_SENSOR, modeCode, callback);
 
 }
 
@@ -1181,16 +1192,6 @@ function waitUntilDarkLinePort(port, callback)
                                               callback();
                                               }
                                               }, 5);
-}
-
-function readGyroPort(mode, port, callback)
-{
-    var modeCode = GYRO_ANGLE;
-    if (mode == 'rate') { modeCode = GYRO_RATE; }
-    
-    var portInt = parseInt(port) - 1;
-    
-    readFromSensor2(portInt, GYRO_SENSOR, modeCode, callback);
 }
 
 function readDistanceSensorPort(port, callback)
@@ -1532,24 +1533,30 @@ function(ext)
      {
         readColorSensorPort(port, mode, callback);
      }
-     ext.readPressureSensorPort = function(port, mode, callback)
-     {
-        readPressureSensorPort(port, mode, callback);
-     }
-     ext.readTemperatureSensorPort = function(port, mode, callback)
-     {
-        readTemperatureSensorPort(port, mode, callback);
-     }
+    
      ext.waitUntilDarkLinePort = function(port, callback)
      {
         waitUntilDarkLinePort(port, callback);
      }
-     
+    
+    //----------------------------------------------------
+    
      ext.readGyroPort = function(mode, port, callback)
      {
         readGyroPort(mode, port, callback);
      }
-     
+     ext.readPressureSensorPort = function(port, callback)
+     {
+        mode = PRESSURE_DB;
+        readPressureSensorPort(mode, port, callback);
+     }
+     ext.readTemperatureSensorPort = function(port, mode, callback)
+     {
+        readTemperatureSensorPort(mode, port, callback);
+     }
+    
+     //----------------------------------------------------
+
      ext.readDistanceSensorPort = function(port, callback)
      {
         readDistanceSensorPort(port, callback);
