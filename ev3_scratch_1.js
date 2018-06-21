@@ -67,9 +67,15 @@ var LED = "1B";
 var SYSTEM_REPLY_ERROR = 5;
 
 var mode0 = "00";
+
 var TOUCH_SENSOR = "10";
 var COLOR_SENSOR = "1D";
 var ULTRASONIC_SENSOR = "1E";
+var GYRO_SENSOR = "20";
+var PRESSURE_SENSOR = "03"; //NXT-SND-DB
+var TEMP_SENSOR = "06"; //NXT-TEMP
+var IR_SENSOR = "21";
+
 var ULTRSONIC_CM = "00";
 var ULTRSONIC_INCH = "01";
 var ULTRSONIC_LISTEN = "02";
@@ -81,13 +87,12 @@ var ULTRSONIC_DC_INCH = "06";
 var READ_MOTOR_POSITION = "01";
 var READ_MOTOR_SPEED = "02";
 
-var GYRO_SENSOR = "20";
 var GYRO_ANGLE = "00";
 var GYRO_RATE = "01";
 var GYRO_FAST = "02";
 var GYRO_RATE_AND_ANGLE = "03";
 var GYRO_CALIBRATION = "04";
-var IR_SENSOR = "21";
+
 var IR_PROX = "00";
 var IR_SEEKER = "01";
 var IR_REMOTE = "02"
@@ -105,11 +110,9 @@ var TONE_QUERY = "TONE_QUERY";
 var UIDRAW_QUERY = "UIDRAW_QUERY";
 var SYSTEM_COMMAND = "SYSTEM_COMMAND";
 
-var PRESSURE_SENSOR = "03"; //NXT-SND-DB
 var PRESSURE_DB = "00"; 
 var PRESSURE_DBA = "01";
 
-var TEMP_SENSOR = "06"; //NXT-TEMP
 var TEMP_FAHRENHEIT = "01"; 
 var TEMP_CELCIUS = "00";
 
@@ -619,7 +622,7 @@ function receive_handler(data)
     var callback = thePendingQuery[3];
     var theCommand = thePendingQuery[4];
 
-    console.log(">> Sensor of type: " + type);
+    console.log(">> Sensor of type: " + type + " (" + sensorNames[type] + ") on port " + port);
     
     if (type == TOUCH_SENSOR)
     {
