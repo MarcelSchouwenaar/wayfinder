@@ -121,7 +121,25 @@ var IRbuttonCodes = [1,            2,              3,          4,              9
 
 var sensorPortsNames = [ "1", "2", "3", "4", "A", "B", "C", "D"];
 
-var sensorNames = { "7E" : "None", "7F" : "Port Error", "FF" : "Unknown", "7D" : "Initializing", "07" : "Large Motor", "08" : "Medium Motor", "10" : "Button Sensor", "1D" : "Light Sensor", "1E" : "Ultrasonic Sensor", "20" : "Gyro Sensor", "21" : "Infrared Sensor", "01" : "Button Sensor (NXT)", "02" : "Light Sensor (NXT)", "03" : "Sound Sensor", "04" : "Light/Color Sensor (NXT)", "05" : "Ultrasonic Sensor (NXT)", "06" : "Temperature Sensor (NXT)" };
+var sensorNames = { "7E" : "None",
+                    "7F" : "Port Error",
+                    "FF" : "Unknown",
+                    "7D" : "Initializing",
+                    "07" : "Large Motor",
+                    "08" : "Medium Motor",
+                    "10" : "Button Sensor",
+                    "1D" : "Light Sensor",
+                    "1E" : "Ultrasonic Sensor",
+                    "20" : "Gyro Sensor",
+                    "21" : "Infrared Sensor",
+                    "01" : "Button Sensor (NXT)",
+                    "02" : "Light Sensor (NXT)",
+                    "03" : "Sound Sensor",
+                    "04" : "Light/Color Sensor (NXT)",
+                    "05" : "Ultrasonic Sensor (NXT)",
+                    "06" : "Temperature Sensor (NXT)",
+                    "03" : "Analog input (NXT)"
+                };
 
 var port_Assignments = port_Assignments || [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
