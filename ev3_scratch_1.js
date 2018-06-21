@@ -600,7 +600,8 @@ function addToQueryQueue(query_info)
 function receive_handler(data)
 {
     var inputData = new Uint8Array(data);
-    console_log(">> received: " + createHexString(inputData));
+    console.log(">> received: " + createHexString(inputData));
+    // console_log(">> received: " + createHexString(inputData));
     
     if (!(connectingOrConnected()))
     {
@@ -622,7 +623,7 @@ function receive_handler(data)
     var callback = thePendingQuery[3];
     var theCommand = thePendingQuery[4];
 
-    console.log(">> Sensor of type: " + type + " (" + sensorNames[type] + ") on port " + port);
+    console.log(">> Sensor of type: " + hexcouplet(type) + " (" + sensorNames[hexcouplet(type)] + ") on port " + port);
     
     if (type == TOUCH_SENSOR)
     {
