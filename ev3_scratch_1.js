@@ -599,7 +599,7 @@ function addToQueryQueue(query_info)
 
 function receive_handler(data)
 {
-    console.log("v5 -- incoming data handler");
+    console.log("v6 -- incoming data handler");
 
     var inputData = new Uint8Array(data);
     console.log(">> received: " + createHexString(inputData));
@@ -650,7 +650,7 @@ function receive_handler(data)
     else if (type == TEMP_SENSOR)
     {
        theResult = getFloatResult(inputData);
-       console.log(">> detected the temperature sensor", theResult);
+       console.log(">> detected the temperature sensor", inputData);
 
     }
 
@@ -740,6 +740,7 @@ function receive_handler(data)
         console_log("result (coalesced): " + theResult);
         callback(theResult);
     }     
+    
     // done with this query
     thePendingQuery = null;
     
