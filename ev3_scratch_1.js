@@ -4,7 +4,7 @@
 // Rename the brick before pairing it with the Mac or else the name gets cached and the serial port will have the old name
 // My bricks are named serialBrick1 (etc)
 // Turn off the iPod/iPhone/iPad checkbox on the EV3 Bluetooth settings after pairing or else it will not work at all
-var version = "v7";
+var version = "v8 ";
 
 
 function timeStamp()
@@ -639,6 +639,7 @@ function receive_handler(data)
     else if (type == GYRO_SENSOR)
     {
         theResult = getFloatResult(inputData);
+        
         console.log(">> detected the gyro sensor", theResult);
 
     }
@@ -727,8 +728,8 @@ function receive_handler(data)
         }
     }
     
-    global_sensor_result[port] = theResult;
-    
+    global_sensor_result[port] = theResult || 42;
+        
     // do the callback
     console_log("result: " + theResult);
     if (callback)
