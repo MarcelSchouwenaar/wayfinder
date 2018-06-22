@@ -4,6 +4,8 @@
 // Rename the brick before pairing it with the Mac or else the name gets cached and the serial port will have the old name
 // My bricks are named serialBrick1 (etc)
 // Turn off the iPod/iPhone/iPad checkbox on the EV3 Bluetooth settings after pairing or else it will not work at all
+var version = "v7";
+
 
 function timeStamp()
 {
@@ -599,7 +601,7 @@ function addToQueryQueue(query_info)
 
 function receive_handler(data)
 {
-    console.log("v6 -- incoming data handler");
+    console.log(version + " -- incoming data handler");
 
     var inputData = new Uint8Array(data);
     console.log(">> received: " + createHexString(inputData));
@@ -649,8 +651,9 @@ function receive_handler(data)
     }
     else if (type == TEMP_SENSOR)
     {
-       theResult = getFloatResult(inputData);
-       console.log(">> detected the temperature sensor", inputData);
+       // theResult = getFloatResult(inputData);
+       theResult = 50;
+       console.log(">> detected the temperature sensor", theResult);
 
     }
 
@@ -1609,7 +1612,7 @@ function(ext)
               ['R', 'battery level',   'readBatteryLevel'],
               ['R', 'gyro  %m.gyroMode %m.whichInputPort',                 'readGyroPort',  'angle', '1'],
               ["R", "pressure sensor %m.whichInputPort",   "readPressureSensorPort",   "1"],
-              ["R", "v6 - temperature sensor %m.tempMode %m.whichInputPort",   "readTemperatureSensorPort", 'celcius',   "1"],
+              ["R", version + "temperature sensor %m.tempMode %m.whichInputPort",   "readTemperatureSensorPort", 'celcius',   "1"],
 
                     ],
      "menus": {
