@@ -4,7 +4,7 @@
 // Rename the brick before pairing it with the Mac or else the name gets cached and the serial port will have the old name
 // My bricks are named serialBrick1 (etc)
 // Turn off the iPod/iPhone/iPad checkbox on the EV3 Bluetooth settings after pairing or else it will not work at all
-var version = "v13b  ";
+var version = "v14  ";
 
 
 function timeStamp()
@@ -1612,7 +1612,7 @@ function(ext)
               ["R", "motor %m.motorInputMode %m.whichMotorIndividual",     "readFromMotor",   "position", "A"],
               ['R', 'battery level',   'readBatteryLevel'],
               ['R', 'gyro  %m.gyroMode %m.whichInputPort',                 'readGyroPort',  'angle', '1'],
-              ["R", "pressure sensor %m.whichInputPort",   "readPressureSensorPort",   "1"],
+              ["R", "analog / pressure sensor %m.whichInputPort",   "readPressureSensorPort",   "1"],
               ["R", version + "temperature sensor %m.tempMode %m.whichInputPort",   "readTemperatureSensorPort", 'celcius',   "1"],
 
                     ],
