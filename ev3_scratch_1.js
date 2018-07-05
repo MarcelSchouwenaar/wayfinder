@@ -1645,7 +1645,7 @@ function(ext)
         */
 
      var serial_info = {type: 'serial', vendor: 0x0694, product: 0x0005}; // LEGO Mindstorms EV3
-     ScratchExtensions.register('LEGO WAYFINDER', descriptor, ext, serial_info);
+     ScratchExtensions.register('EV3 Control', descriptor, ext, serial_info);
     
      console_log(' registered extension. theEV3Device:' + theEV3Device);
      
