@@ -4,7 +4,7 @@
 // Rename the brick before pairing it with the Mac or else the name gets cached and the serial port will have the old name
 // My bricks are named serialBrick1 (etc)
 // Turn off the iPod/iPhone/iPad checkbox on the EV3 Bluetooth settings after pairing or else it will not work at all
-var version = "v13  ";
+var version = "v13b  ";
 
 
 function timeStamp()
@@ -653,11 +653,11 @@ function receive_handler(data)
     else if (type == TEMP_SENSOR)
     {
        theResult = getFloatResult(inputData);
-       port = 3;
+       // port = 3;
        console.log(">> detected the temperature sensor", theResult, "port", port, type, mode, callback, theCommand);
 
     }
-
+ 
     //------------------------------------------
     else if (type == COLOR_SENSOR)
     {
